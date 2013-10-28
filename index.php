@@ -1,8 +1,9 @@
 <?php
 include_once("./propertyDetails.class.php");
+include_once("./locationDetails.class.php");
+include_once("./areaDetails.class.php");
 include_once('./config.inc.php');
 header ("Content-Type:text/xml"); 
-//include("./unitTestDB.class.php");
 $apiName = $apiType = $apiCat = $clientId = null;
 
 if ( isset( $_REQUEST['name']) )
@@ -20,13 +21,15 @@ switch ( $apiName )
 
 	case 'property': 
 		$obj = new propertyDetails($apiType, $apiCat);
-		$result = $obj->executeQuery();
+
 		break;
 
 	case 'location':
+		$obj = new locationDetails($apiType, $apiCat);
 		break;
 	
 	case 'area':
+		$obj = new areaDetails($apiType, $apiCat);
 		break;
 
 	default:
@@ -34,8 +37,11 @@ switch ( $apiName )
 
 }
 
-print "$result";
-
+if ( $obj != null )
+{
+	$result = $obj->executeQuery();
+	print "$result";
+}
 
 
 ?>
