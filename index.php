@@ -19,15 +19,20 @@ $obj = null;
 switch ( $apiName )
 {
 
+  case 'login':
+    $userId = $_REQUEST['user'];
+    $passwd = md5($_REQUEST['passwd']);
+    $obj = new loginDetails($userId,$passwd);
+    break;
+
 	case 'property': 
 		$obj = new propertyDetails($apiType, $apiCat);
-
 		break;
 
 	case 'location':
 		$obj = new locationDetails($apiType, $apiCat);
 		break;
-	
+
 	case 'area':
 		$obj = new areaDetails($apiType, $apiCat);
 		break;
