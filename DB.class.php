@@ -51,9 +51,10 @@ class DB
 	{
 		$result = mysql_query($query);
 		
-		if ( !$result )
+		if ( !$result || mysql_errno() )
 		{
 			error_log("Execute Query : ".mysql_error());
+      return false;
 		}
 		return $result;
 	}

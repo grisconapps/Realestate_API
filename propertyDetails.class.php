@@ -22,26 +22,29 @@ class propertyDetails
      case 'list':
 
        $this->query = "select * from property";
+       $params = '';
        if ( $cat == 'filter' )
        {
-         parseParams();
+         $params = parseListParams();
        }
+        $this->query .= "$params;";
        break;
      
      case 'add':
-       
+       $this->query = "insert into property ".parseAddParams();
        break;
-     
      case 'edit':
 
-        $this->query = ""; // Update property with params added
+        $this->query = "update property set "; // Update property with params added
+          $params = parseUpdateParams();
+        $this->query .= "$params;";
        break;
 
     default;  
      }
   }
 
-  private function parseParams()
+  private function parseListParams()
   {
     $queryParams = '';
     foreach ( $_REQUEST as $key=>$value)
@@ -58,6 +61,53 @@ class propertyDetails
       $queryParams .= "$key=$value";
 
     }
+    return $queryParams;
+  }
+  private function parseAddParams()
+  {
+    $queryKeys = '';
+    $queryValues = '';
+
+    foreach ( $_REQUEST as $key=>$value)
+    {
+      if ( $key == 'name' || $key == 'type' || $key == 'cat' || $key == 'clientId' )
+        continue;
+      if ( $queryKeys != '' )
+        $queryKey .= ',';
+      if ( $queryValues != '' )
+        $queryValues .= ',';
+
+      $queryKeys .= $key;
+      $queryValues .= $value;
+
+    }
+
+    return "$queryKeys values ($queryValues);";
+  }
+
+  private function parseUpdateParams()
+  {
+      $queryUpdate = '';
+      $queryWhere = '';
+    foreach ( $_REQUEST as $key=>$value)
+    {
+      if ( $key == 'name' || $key == 'type' || $key == 'cat' || $key == 'clientId' )
+        continue;
+      if ( $key == 'propId')
+      {
+        $queryWhere .= " $key=$value"; 
+         continue;
+      }
+      if ( $queryUpdate != '' )
+      {
+        $queryUpdate .= ',';
+      }
+  
+      $queryUpdate .= "$key=$value";
+
+    }
+
+    return "$quertUpdate where $queryWhere";
   }
      
 	public function executeQuery()

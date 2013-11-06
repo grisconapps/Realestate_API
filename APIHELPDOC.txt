@@ -1,0 +1,82 @@
+API available are 
+
+login
+property
+Location
+Area
+
+login
+------
+Url : ?name=login & <addition details>
+
+	returns user details when user is found.
+	returns 'false' in case login fails
+
+	TODO:
+		type:
+		-----
+			To add functionality to have new user functionality
+
+			add:
+			----
+				To Add new users to the DB for all new users
+				example:
+					192.168.1.3:8080/?name=user&type=add&name='sai'&passwd='md5password';
+
+			check:
+			------
+
+				To check users in the DB with provided credentials
+				example:
+					192.168.1.3:8080/?name=user&type=check&&name='sai'&passwd='md5password';
+
+property
+--------
+
+Url : ?name=property & <addition details>
+
+	additional params must for property are
+		type
+
+	type :
+	------
+	 provide the type of property api that is being accessed. Different type of type are 
+
+	type - list,add,edit
+
+		list: 
+		----
+				list provides list of properties. If provided with addition param called 'cat=filter' provides option to refine list of prorperties
+				return xml with the list of properties that satisfies all conditions or all properties
+
+				example:
+					192.168.1.3:8080/?name=property&type=list 
+					192.168.1.3:8080/?name=property&type=list&cat=filter&OwnerName='sai'&status='New'
+		
+		add :
+		---- 
+
+				To add new property to the db. provide all the fields that needs to be added to the db.
+				returns empty xml or 'false' is add fails. 
+
+				example:
+					192.168.1.3:8080/?name=property&type=add 
+					192.168.1.3:8080/?name=property&type=add&cat=filter&OwnerName='sai'&status='New'
+		
+		edit: 
+		-----
+
+				To update the property listed with some other values. Provide api with all the list of columns and its new values.
+				PropId value is a must in this params list for this type of api call.
+				example:
+					192.168.1.3:8080/?name=property&type=edit&cat=filter&OwnerName='sai'&status='Sold'&propId='Al Bida4225'
+
+
+Location
+--------
+Url : ?name=location & <addition details>
+
+Area
+----
+
+Url : ?name=area & <addition details>
