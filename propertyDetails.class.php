@@ -11,7 +11,7 @@ class propertyDetails
 	public function propertyDetails($type, $cat)
 	{
 
-    init($type,$cat);
+    $this->init($type,$cat);
 		$this->dbConn = new RealEstateDB(DB_USER,DB_PASSWD,DB_DATABASE);
 		$this->dbConn->connect();
 	}
