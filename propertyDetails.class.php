@@ -22,7 +22,7 @@ class propertyDetails
 	  {
 		  case 'list':
 
-			  $this->query = "select * from property";
+			  $this->query = "select * from property ";
 			  $params = '';
 			  if ( $cat == 'filter' )
 			  {
