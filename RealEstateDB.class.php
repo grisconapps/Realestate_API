@@ -27,7 +27,7 @@ class RealEstateDB extends DB
 			$xml .= "<error>".mysql_error()."</error>";
 			return $xml;
 		}
-		if( !empty($result) && !mysql_errno()  && mysql_num_rows($result)>0 )
+		if( !empty($result) && !mysql_errno()  && !is_bool($result) && mysql_num_rows($result)>0 )
 		{
 			$xml  = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 			$xml .= "<results>";

@@ -40,7 +40,7 @@ class propertyDetails
 			  break;
 
 		  case 'edit':
-
+			  $this->noResult = true;
 			  $this->query = "update property set "; // Update property with params added
 			  $params = $this->parseUpdateParams();
 			  $this->query .= "$params;";
