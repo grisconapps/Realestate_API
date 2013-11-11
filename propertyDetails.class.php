@@ -25,18 +25,18 @@ class propertyDetails
        $params = '';
        if ( $cat == 'filter' )
        {
-         $params = parseListParams();
+         $params = $this->parseListParams();
        }
         $this->query .= "$params;";
        break;
      
      case 'add':
-       $this->query = "insert into property ".parseAddParams();
+       $this->query = "insert into property ".$this->parseAddParams();
        break;
      case 'edit':
 
         $this->query = "update property set "; // Update property with params added
-          $params = parseUpdateParams();
+          $params = $this->parseUpdateParams();
         $this->query .= "$params;";
        break;
 
@@ -82,7 +82,7 @@ class propertyDetails
 
     }
 
-    return "$queryKeys values ($queryValues);";
+    return " ($queryKeys) values ($queryValues);";
   }
 
   private function parseUpdateParams()
@@ -109,17 +109,17 @@ class propertyDetails
 
     return "$quertUpdate where $queryWhere";
   }
-     
-	public function executeQuery()
-	{
 
-		$result = $this->dbConn->prepareQuery($this->query);
-		return $result;
-	}
-	public function close()
-	{
-		$this->dbConn->close();
-	}
+  public function executeQuery()
+  {
+
+	  $result = $this->dbConn->prepareQuery($this->query);
+	  return $result;
+  }
+  public function close()
+  {
+	  $this->dbConn->close();
+  }
 
 }
 
