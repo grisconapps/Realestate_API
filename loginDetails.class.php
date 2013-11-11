@@ -24,6 +24,7 @@ class loginDetails
 		$insertNewUser = false;
 		if ( $result = $this->editUserDetails() )
 		{		
+			error_log("edit user details passed mysql_error:".mysql_errno());
 			$insertNewUser = true;
 		}
 		else if ( $result = $this->newUserLogin() )
@@ -46,7 +47,7 @@ class loginDetails
                         $result = $xml;
 		}
 
-		error_log("Result: $result");
+		error_log("executeQuery Result: $result");
 		return $result;
 	}
 	public function close()
