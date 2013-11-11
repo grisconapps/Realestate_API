@@ -2,8 +2,9 @@
 include_once("./propertyDetails.class.php");
 include_once("./locationDetails.class.php");
 include_once("./areaDetails.class.php");
+include_once("./loginDetails.class.php");
 include_once('./config.inc.php');
-header ("Content-Type:text/xml"); 
+
 $apiName = $apiType = $apiCat = $clientId = null;
 
 if ( isset( $_REQUEST['name']) )
@@ -20,9 +21,9 @@ switch ( $apiName )
 {
 
   case 'login':
-    $userId = $_REQUEST['user'];
-    $passwd = md5($_REQUEST['passwd']);
-    $obj = new loginDetails($userId,$passwd);
+		$userId = $_REQUEST['user'];
+		$passwd = $_REQUEST['passwd'];
+	    	$obj = new loginDetails($userId,$passwd);
     break;
 
 	case 'property': 
@@ -45,7 +46,16 @@ switch ( $apiName )
 if ( $obj != null )
 {
 	$result = $obj->executeQuery();
-	print "$result";
+	if( empty($result) )
+	{
+		print "$result";
+	}
+	else
+	{
+		
+		header ("Content-Type:text/xml"); 
+		print "$result";
+	}
 }
 
 

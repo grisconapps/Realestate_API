@@ -8,27 +8,29 @@ class RealEstateDB extends DB
 	{
 		parent::DB($user,$passwd,$db);
 	}
+
 	public function prepareQuery($query)
 	{
-	   if ( $this->validateQuery($query) )
-	   {
-		$result = $this->executeQuery($query);
-	   }
+	   $result = $this->executeQuery($query);
 	   $resultXML = $this->convertResultToXML($result);
 
 	   return $resultXML;
 	}
-	public function validateQuery($query)
-	{
-	  return true;
-	}
+
 	public function convertResultToXML($result)
 	{
 
-		$xml          = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
-		$xml         .= "<results>";
-		if(mysql_num_rows($result)>0)
+		if ( empty($result) )
 		{
+			error_log("RealEstateDB.convertResultToXML: result is null");
+			$xml  = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+			$xml .= "<error>".mysql_error()."</error>";
+			return $xml;
+		}
+		if( !empty($result) && !mysql_errno()  && mysql_num_rows($result)>0 )
+		{
+			$xml  = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+			$xml .= "<results>";
 			while($result_array = mysql_fetch_assoc($result))
 			{
 				$xml .= "<row>";
@@ -48,10 +50,11 @@ class RealEstateDB extends DB
 
 				$xml.="</row>";
 			}
+
+			$xml .= "</results>";
+
+			return $xml;	
 		}		
-		$xml .= "</results>";
-	
-		return $xml;	
 	}
 
 }

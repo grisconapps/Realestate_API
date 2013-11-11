@@ -49,12 +49,17 @@ class DB
 
 	public function executeQuery($query)
 	{
-		$result = mysql_query($query);
 		
-		if ( !$result || mysql_errno() )
+		$result = mysql_query($query);
+		if ( mysql_errno() && empty($result) )
 		{
-			error_log("Execute Query : ".mysql_error());
-      return false;
+			error_log("ExecuteQuery : ".mysql_error());
+			      return false;
+		}
+		else if ( empty($result) )
+		{
+			error_log("ExecuteQuery result is empty");
+			return true;
 		}
 		return $result;
 	}
