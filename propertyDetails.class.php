@@ -27,6 +27,8 @@ class propertyDetails
 			  if ( $cat == 'filter' )
 			  {
 				  $params = $this->parseListParams();
+				  if ( $params != null )
+				  $this->query .= " where ";
 			  }
 			  $this->query .= "$params;";
 			  break;
