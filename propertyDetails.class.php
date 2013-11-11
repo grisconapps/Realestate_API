@@ -128,7 +128,7 @@ class propertyDetails
   {
 	  
 	  $result = $this->dbConn->prepareQuery($this->query);
-	  error_log("executeQuery: mysql_errno = ".mysql_errno());
+	  error_log("executeQuery: mysql_errno = ".mysql_errno()." Result= $result");
 	  if ( mysql_errno() || (!$result && !$this->noResult))
 	  {
 		  $xml  = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
