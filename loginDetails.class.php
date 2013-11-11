@@ -79,6 +79,37 @@ class loginDetails
 
 			$this->query .= "( $keys ) values ( $values );"; 
 		}
+		else if ( isset($_REQUEST['type']) && $_REQUEST['type'] == 'edit' )
+		{
+			if (  !$this->verifyExistingUser() )
+			{
+				return false;
+			}
+				$this->query = "update user set ";
+				$updateSet = '';
+				$updateKey = '';
+
+				foreach($_REQUEST as $key=>$value)
+				{
+					if ( $key == 'name' || $key=='type' || $key == 'cat' )
+						continue;
+					if ( $key == 'user' )
+					{
+						$key = 'name';
+						$updateKey = "$key=\"$value\"";
+
+					}
+					if ( $updateSet != ''  )
+					{
+						$updateSet .= ','; 
+					}
+					$updateSet .= "$key=\"$value\"";
+				}
+
+				$this->query .= " $updateSet where $updateKey";
+			}
+
+		}
 		return true;
 	}
 	public function verifyExistingUser()
