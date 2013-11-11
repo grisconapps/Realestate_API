@@ -49,7 +49,7 @@ class DB
 
 	public function executeQuery($query)
 	{
-		
+		error_log("Query: $query");	
 		$result = mysql_query($query);
 		if ( mysql_errno() && empty($result) )
 		{

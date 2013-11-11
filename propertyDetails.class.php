@@ -11,7 +11,7 @@ class propertyDetails
 	public function propertyDetails($type, $cat)
 	{
 
-    $this->init($type,$cat);
+    		$this->init($type,$cat);
 		$this->dbConn = new RealEstateDB(DB_USER,DB_PASSWD,DB_DATABASE);
 		$this->dbConn->connect();
 	}
@@ -73,7 +73,7 @@ class propertyDetails
       if ( $key == 'name' || $key == 'type' || $key == 'cat' || $key == 'clientId' )
         continue;
       if ( $queryKeys != '' )
-        $queryKey .= ',';
+        $queryKeys .= ',';
       if ( $queryValues != '' )
         $queryValues .= ',';
 
@@ -91,13 +91,16 @@ class propertyDetails
       $queryWhere = '';
     foreach ( $_REQUEST as $key=>$value)
     {
+
       if ( $key == 'name' || $key == 'type' || $key == 'cat' || $key == 'clientId' )
         continue;
+
       if ( $key == 'propId')
       {
         $queryWhere .= " $key=$value"; 
          continue;
       }
+
       if ( $queryUpdate != '' )
       {
         $queryUpdate .= ',';
