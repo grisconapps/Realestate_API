@@ -40,7 +40,7 @@ class loginDetails
                         $xml .= "<error>".mysql_error()."</error>";
 			$result = $xml;
 		}
-		if ( !mysql_errno() && !$result && $insertNewUser)
+		if ( !mysql_errno()  && $insertNewUser)
 		{
 			$xml  = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
                         $xml .= "<results></results>";
