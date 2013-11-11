@@ -22,7 +22,11 @@ class loginDetails
 	public function executeQuery()
 	{
 		$insertNewUser = false;
-		if ( $result = $this->newUserLogin())
+		if ( $result = $this->editUserDetails() )
+		{		
+			$insertNewUser = true;
+		}
+		else if ( $result = $this->newUserLogin() )
 		{
 			error_log("loginDetails.executeQuery Query: ".$this->query."\n");
 			$result = $this->dbConn->prepareQuery($this->query);
@@ -79,7 +83,12 @@ class loginDetails
 
 			$this->query .= "( $keys ) values ( $values );"; 
 		}
-		else if ( isset($_REQUEST['type']) && $_REQUEST['type'] == 'edit' )
+	
+		return true;
+	}
+	public function editUserDetails()
+	{
+		if ( isset($_REQUEST['type']) && $_REQUEST['type'] == 'edit' )
 		{
 			if (  !$this->verifyExistingUser() )
 			{
@@ -108,10 +117,9 @@ class loginDetails
 			}
 
 			$this->query .= " $updateSet where $updateKey";
-
-
 		}
-		return true;
+		
+		return true; 
 	}
 	public function verifyExistingUser()
 	{
