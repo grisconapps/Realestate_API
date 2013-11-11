@@ -6,7 +6,7 @@ class propertyDetails
 
 	public 	$query ;
 	public $dbConn;
-	public $insertNew;
+	public $noResult;
 
 	public function propertyDetails($type, $cat)
 	{
@@ -17,7 +17,7 @@ class propertyDetails
 	}
   private function init($type,$cat)
   {
-	  $this->insertNew = false;
+	  $this->noResult = false;
 	  switch($type)
 	  {
 		  case 'list':
@@ -35,7 +35,7 @@ class propertyDetails
 
 		  case 'add':
 
-			  $this->insertNew = true;
+			  $this->noResult = true;
 			  $this->query = "insert into property ".$this->parseAddParams();
 			  break;
 
@@ -128,13 +128,13 @@ class propertyDetails
   {
 	  
 	  $result = $this->dbConn->prepareQuery($this->query);
-	  if ( mysql_errno() || (!$result && !$this->insertNew))
+	  if ( mysql_errno() || (!$result && !$this->noResult))
 	  {
 		  $xml  = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 		  $xml .= "<error>".mysql_error()."</error>";
 		  $result = $xml;
 	  }
-	  if ( !mysql_errno() && !$result && $this->insertNew)
+	  if ( !mysql_errno() && !$result && $this->noResult)
 	  {
 		  $xml  = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 		  $xml .= "<results></results>";
