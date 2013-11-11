@@ -126,9 +126,9 @@ class loginDetails
 	{
 		$userId = $this->userId;
 		$this->query = "select * from user where name=\"$userId\";";
-		error_log("Query : ".$this->query."\n");
+		error_log("verifyExistingUser Query : ".$this->query."\n");
 		$result = $this->dbConn->executeQuery($this->query);
-		error_log("Result : ".$result);	    		
+		error_log("verifyExistingUser Result : ".$result);	    		
 		if ( mysql_num_rows($result)>0)
 			return true;
 		return false;
