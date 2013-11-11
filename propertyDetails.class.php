@@ -78,7 +78,7 @@ class propertyDetails
         $queryValues .= ',';
 
       $queryKeys .= $key;
-      $queryValues .= $value;
+      $queryValues .= "\"$value\"";
 
     }
 
