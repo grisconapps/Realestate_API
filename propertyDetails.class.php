@@ -119,7 +119,7 @@ class propertyDetails
 		  $queryUpdate .= "$key=\"$value\"";
 
 	  }
-	  error_log(" queryUpdate = $queryUdate ");
+	  error_log(" queryUpdate = $queryUpdate ");
 
 	  return "$queryUpdate where $queryWhere";
   }
