@@ -96,8 +96,11 @@ class propertyDetails
   {
 	  $queryUpdate = '';
 	  $queryWhere = '';
+
+		error_log("Request params = ".print_r($_REQUEST,1));
 	  foreach ( $_REQUEST as $key=>$value)
 	  {
+
 
 		  if ( $key == 'name' || $key == 'type' || $key == 'cat' || $key == 'clientId' )
 			  continue;
