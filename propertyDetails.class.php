@@ -121,7 +121,7 @@ class propertyDetails
 	  }
 	  error_log(" queryUpdate = $queryUdate ");
 
-	  return "$quertUpdate where $queryWhere";
+	  return "$queryUpdate where $queryWhere";
   }
 
   public function executeQuery()
