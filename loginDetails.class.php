@@ -4,7 +4,7 @@ class loginDetails
 {
 
 
-	public 	$query ;
+	public $query ;
 	public $dbConn;
 	public $userId;
 	public $passwd;
@@ -14,7 +14,7 @@ class loginDetails
 		$this->userId = $userId;
 		$this->passwd = $passwd;
 
-	    	$this->query = "select * from user where name=\"$userId\" and passwd=\"$passwd\";";
+
 		$this->dbConn = new RealEstateDB(DB_USER,DB_PASSWD,DB_DATABASE);
 		$this->dbConn->connect();
 	}
@@ -34,7 +34,15 @@ class loginDetails
 			error_log("loginDetails.executeQuery Query: ".$this->query."\n");
 			$result = $this->dbConn->prepareQuery($this->query);
 			$insertNewUser = true;
-			error_log("Result: $result");
+			error_log("newUserLogin Result: $result");
+		}
+		else
+		{
+
+	    		$this->query = "select * from user where name=\"$this->userId\" and passwd=\"$this->passwd\";";
+			$result = $this->dbConn->prepareQuery($this->query);
+			error_log("checkUserLogin Result: $result");
+
 		}
 		if ( mysql_errno() || (!$result && !$insertNewUser))
 		{
@@ -85,9 +93,10 @@ class loginDetails
 			}
 
 			$this->query .= "( $keys ) values ( $values );"; 
+			return true;
 		}
 	
-		return true;
+		return false;
 	}
 	public function editUserDetails()
 	{
@@ -120,9 +129,10 @@ class loginDetails
 			}
 
 			$this->query .= " $updateSet where $updateKey";
+			return true;
 		}
 		
-		return true; 
+		return false; 
 	}
 	public function verifyExistingUser()
 	{
